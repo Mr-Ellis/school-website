@@ -263,6 +263,93 @@
       border-top: 3px dashed var(--accent1);
     }
     
+    .admin-section {
+      background: var(--light);
+      padding: 20px;
+      border-radius: 12px;
+      margin: 30px auto 0;
+      max-width: 400px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border: 2px solid var(--primary);
+    }
+    
+    .admin-section h3 {
+      color: var(--accent2);
+      margin: 0 0 15px;
+      font-size: 1.2rem;
+    }
+    
+    .admin-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    
+    .form-group label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--dark);
+    }
+    
+    .form-group input {
+      padding: 10px;
+      border: 2px solid var(--accent3);
+      border-radius: 8px;
+      font-family: 'Comic Neue', cursive;
+      font-size: 1rem;
+    }
+    
+    .admin-btn {
+      background: var(--accent1);
+      color: var(--dark);
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-family: 'Comic Neue', cursive;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 0 rgba(157, 123, 222, 0.3);
+    }
+    
+    .admin-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 0 rgba(157, 123, 222, 0.3);
+    }
+    
+    .admin-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 0 rgba(157, 123, 222, 0.3);
+    }
+    
+    .message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      display: none;
+    }
+    
+    .success {
+      background: var(--accent3);
+      color: var(--dark);
+      display: block;
+    }
+    
+    .error {
+      background: #ff9ed8;
+      color: var(--dark);
+      display: block;
+    }
+    
     @media (max-width: 768px) {
       header h1 {
         font-size: 2.2rem;
@@ -291,6 +378,10 @@
       
       .welcome-message h2 {
         font-size: 1.6rem;
+      }
+      
+      .admin-section {
+        margin: 30px 20px 0;
       }
     }
   </style>
@@ -343,6 +434,22 @@
 
   <footer>
     <p>🦄 Made with unicorn magic for amazing math learners! ✨</p>
+    
+    <div class="admin-section">
+      <h3>Parent/Teacher Reset</h3>
+      <form class="admin-form" id="adminForm">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="admin-btn">Reset Game Lock 🔓</button>
+      </form>
+      <div id="message" class="message"></div>
+    </div>
   </footer>
 
   <script>
@@ -388,6 +495,41 @@
         };
       }
     }
+    
+    // Admin login functionality
+    document.getElementById('adminForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const message = document.getElementById('message');
+      
+      // Check credentials
+      if (username === 'craig' && password === '12345') {
+        // Reset the game lock system
+        localStorage.removeItem('completionStates');
+        localStorage.removeItem('year3Journey');
+        
+        // Show success message
+        message.textContent = 'Game lock system has been reset! All games are now locked again.';
+        message.className = 'message success';
+        
+        // Clear form
+        document.getElementById('adminForm').reset();
+        
+        // Create celebration confetti
+        createConfetti();
+      } else {
+        // Show error message
+        message.textContent = 'Invalid username or password. Please try again.';
+        message.className = 'message error';
+      }
+      
+      // Hide message after 5 seconds
+      setTimeout(function() {
+        message.style.display = 'none';
+      }, 5000);
+    });
   </script>
 </body>
 </html>
