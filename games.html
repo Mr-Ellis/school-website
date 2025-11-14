@@ -120,6 +120,78 @@
       padding: 24px 16px; 
     }
     
+    .timer-section {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+      text-align: center;
+      border: 3px dashed var(--accent1);
+    }
+    
+    .timer-section h2 {
+      color: var(--accent2);
+      margin: 0 0 20px;
+      font-size: 1.6rem;
+    }
+    
+    .timer-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .timer-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-family: 'Comic Neue', cursive;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 0 rgba(157, 123, 222, 0.5);
+    }
+    
+    .timer-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 0 rgba(157, 123, 222, 0.5);
+    }
+    
+    .timer-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 0 rgba(157, 123, 222, 0.5);
+    }
+    
+    .timer-display {
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--accent2);
+      margin: 20px 0;
+      text-shadow: 2px 2px 0px rgba(157, 123, 222, 0.2);
+    }
+    
+    .timer-input {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .timer-input input {
+      width: 80px;
+      padding: 10px;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      font-family: 'Comic Neue', cursive;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+    
     .game-section {
       margin: 24px auto;
       background: white;
@@ -143,7 +215,7 @@
     .game-container {
       position: relative;
       width: 100%;
-      height: 600px;
+      height: 500px;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -354,6 +426,10 @@
       .lock-message p {
         font-size: 1rem;
       }
+      
+      .timer-display {
+        font-size: 2.5rem;
+      }
     }
   </style>
 </head>
@@ -370,10 +446,31 @@
   </nav>
 
   <div class="container">
+    <div class="timer-section">
+      <h2>⏰ Game Time Countdown</h2>
+      <div class="timer-display" id="timerDisplay">10:00</div>
+      <div class="timer-controls">
+        <button class="timer-btn" onclick="startTimer()">Start Timer</button>
+        <button class="timer-btn" onclick="pauseTimer()">Pause</button>
+        <button class="timer-btn" onclick="resetTimer()">Reset</button>
+      </div>
+      <div class="timer-input">
+        <div>
+          <label for="minutes">Minutes:</label>
+          <input type="number" id="minutes" min="0" max="60" value="10">
+        </div>
+        <div>
+          <label for="seconds">Seconds:</label>
+          <input type="number" id="seconds" min="0" max="59" value="0">
+        </div>
+        <button class="timer-btn" onclick="setCustomTime()">Set Time</button>
+      </div>
+    </div>
+
     <div class="game-section">
-      <h2>🎮 Bloxd.io Game</h2>
+      <h2>🎮 Blooket Games</h2>
       <div class="game-container">
-        <iframe src="http://bloxd.io" class="game-frame" id="gameFrame"></iframe>
+        <iframe src="https://play.blooket.com/play" class="game-frame" id="gameFrame"></iframe>
         <div class="lock-overlay" id="lockOverlay">
           <div class="lock-icon">🔒</div>
           <div class="lock-message">
@@ -397,7 +494,7 @@
           <div class="game-card-content">
             <h3>Math Bingo 🎯</h3>
             <p>Practice your math facts with this fun bingo game!</p>
-            <a href="#" class="game-card-link">Play Now</a>
+            <a href="https://www.abcya.com/games/number_bingo" target="_blank" class="game-card-link">Play Now</a>
           </div>
         </div>
         
@@ -405,7 +502,7 @@
           <div class="game-card-content">
             <h3>Number Match 🧩</h3>
             <p>Match numbers with their representations in this memory game.</p>
-            <a href="#" class="game-card-link">Play Now</a>
+            <a href="https://www.mathplayground.com/matching_fraction_percent.html" target="_blank" class="game-card-link">Play Now</a>
           </div>
         </div>
         
@@ -413,7 +510,7 @@
           <div class="game-card-content">
             <h3>Shape Sorter 🔺</h3>
             <p>Sort and identify different geometric shapes.</p>
-            <a href="#" class="game-card-link">Play Now</a>
+            <a href="https://www.turtlediary.com/game/identify-shapes.html" target="_blank" class="game-card-link">Play Now</a>
           </div>
         </div>
       </div>
@@ -428,13 +525,62 @@
     🦄
   </div>
 
+  <audio id="timerSound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" preload="auto"></audio>
+
   <script>
-    // Track completion states to prevent re-unlocking
+    // Timer functionality
+    let timer;
+    let timeLeft = 600; // 10 minutes in seconds
+    let isRunning = false;
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      document.getElementById('timerDisplay').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      if (!isRunning) {
+        isRunning = true;
+        timer = setInterval(() => {
+          timeLeft--;
+          updateTimerDisplay();
+          
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            isRunning = false;
+            document.getElementById('timerSound').play();
+            alert("Time's up! ⏰");
+          }
+        }, 1000);
+      }
+    }
+
+    function pauseTimer() {
+      clearInterval(timer);
+      isRunning = false;
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      isRunning = false;
+      timeLeft = 600; // Reset to 10 minutes
+      updateTimerDisplay();
+    }
+
+    function setCustomTime() {
+      const minutes = parseInt(document.getElementById('minutes').value) || 0;
+      const seconds = parseInt(document.getElementById('seconds').value) || 0;
+      timeLeft = minutes * 60 + seconds;
+      updateTimerDisplay();
+    }
+
+    // Game unlock functionality
     let completionStates = JSON.parse(localStorage.getItem('completionStates') || '{}');
     let curriculumItems = JSON.parse(localStorage.getItem('year3Journey') || '[]');
     let previouslyCompletedCount = Object.keys(completionStates).length;
     
-    // Curriculum items with their display names
     const curriculumData = [
       { id: 'step1', name: 'Count in 2s, 5s and 10s' },
       { id: 'step2', name: 'Hundreds, Tens and Ones' },
@@ -454,10 +600,8 @@
       const lockOverlay = document.getElementById('lockOverlay');
       const requirementList = document.getElementById('requirementList');
       
-      // Clear previous requirements
       requirementList.innerHTML = '';
       
-      // Count currently completed items
       let currentCompletedCount = 0;
       curriculumItems.forEach((completed, index) => {
         if (completed) {
@@ -465,10 +609,8 @@
         }
       });
       
-      // Check if there are new completions
       const hasNewCompletion = currentCompletedCount > previouslyCompletedCount;
       
-      // Update completion states for newly completed items
       if (hasNewCompletion) {
         curriculumItems.forEach((completed, index) => {
           if (completed && !completionStates['step' + (index + 1)]) {
@@ -479,7 +621,6 @@
         previouslyCompletedCount = Object.keys(completionStates).length;
       }
       
-      // Show requirements
       curriculumData.forEach((item, index) => {
         const requirementItem = document.createElement('div');
         requirementItem.className = 'requirement-item';
@@ -496,13 +637,11 @@
         requirementList.appendChild(requirementItem);
       });
       
-      // Unlock the game if there are new completions
       if (hasNewCompletion) {
         unlockGame();
       } else if (currentCompletedCount === 0) {
         lockOverlay.style.display = 'flex';
       } else {
-        // Show message that no new completions were found
         const message = lockOverlay.querySelector('p');
         message.textContent = 'Complete a NEW math lesson to unlock this game!';
         lockOverlay.style.display = 'flex';
@@ -512,10 +651,8 @@
     function unlockGame() {
       const lockOverlay = document.getElementById('lockOverlay');
       
-      // Create confetti effect
       createConfetti();
       
-      // Show unlock message
       lockOverlay.innerHTML = `
         <div class="lock-icon">🎉</div>
         <div class="lock-message">
@@ -524,7 +661,6 @@
         </div>
       `;
       
-      // Add a small delay before hiding the overlay
       setTimeout(() => {
         lockOverlay.style.opacity = '0';
         setTimeout(() => {
@@ -552,7 +688,6 @@
         
         document.body.appendChild(confetti);
         
-        // Animate confetti
         const animation = confetti.animate([
           { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
           { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
@@ -561,7 +696,6 @@
           easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
         });
         
-        // Remove confetti after animation
         animation.onfinish = () => {
           confetti.remove();
         };
@@ -570,9 +704,9 @@
     
     // Initialize the page
     window.addEventListener('load', function() {
+      updateTimerDisplay();
       checkGameUnlockStatus();
       
-      // Listen for changes in the curriculum progress
       window.addEventListener('storage', function(e) {
         if (e.key === 'year3Journey') {
           curriculumItems = JSON.parse(e.newValue || '[]');
@@ -580,7 +714,6 @@
         }
       });
       
-      // Also check for changes every few seconds (in case of same-page updates)
       setInterval(function() {
         const newCurriculumItems = JSON.parse(localStorage.getItem('year3Journey') || '[]');
         if (JSON.stringify(newCurriculumItems) !== JSON.stringify(curriculumItems)) {

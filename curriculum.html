@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>My Magical Math Journey 🦄</title>
+  <title>My Maths Learning Journey 🦄</title>
   <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&family=Baloo+2&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
@@ -320,11 +320,15 @@
       font-size: 0.9rem;
     }
     
-    .links a:first-child {
+    .links a.video-en {
       background: var(--accent3);
     }
     
-    .links a:last-child {
+    .links a.video-de {
+      background: #9d7bde;
+    }
+    
+    .links a.blooket {
       background: var(--accent1);
     }
     
@@ -359,16 +363,6 @@
       50% { transform: translateY(-10px); }
     }
     
-    .confetti {
-      position: fixed;
-      width: 10px;
-      height: 10px;
-      background: var(--primary);
-      opacity: 0;
-      z-index: 1000;
-      pointer-events: none;
-    }
-    
     @media (max-width: 768px) {
       nav a {
         margin: 5px;
@@ -388,28 +382,28 @@
 </head>
 <body>
   <header>
-    <h1>My Magical Math Journey 🦄✨</h1>
-    <p>Learning Year 3 math with unicorn magic and rainbows!</p>
+    <h1>My Maths Learning Journey 🐴🦄</h1>
+    <p>Step by step through Year 3 — powered by unicorn magic ✨</p>
   </header>
 
   <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="curriculum.html">📚 Learning Journey</a>
-    <a href="games.html">🎮 Games & Fun</a>
+    <a href="index.html">Home</a>
+    <a href="curriculum.html">Learning Journey</a>
+    <a href="games.html">Games 🐎</a>
   </nav>
 
   <div class="container">
     <div class="progress">
-      <h2>Your Magical Progress 🦄</h2>
+      <h2>Your journey progress 🦄</h2>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
       </div>
-      <p class="progress-text" id="progressText">You've completed 0 of 12 magical math steps!</p>
+      <p class="progress-text" id="progressText">You've travelled 0 steps</p>
     </div>
 
     <!-- ✅ Number & Place Value (Complete) -->
     <div class="strand">
-      <h2>🌈 Number & Place Value 🐴</h2>
+      <h2>Number & Place Value 🐴</h2>
       <ul>
         <li>
           <div class="checkbox-container">
@@ -417,8 +411,9 @@
             <label for="step1">Count in 2s, 5s and 10s</label>
           </div>
           <span class="links">
-            <a href="https://www.youtube.com/watch?v=iGIZ2anO-c8" target="_blank">🎥 Video</a>
-            <a href="https://play.blooket.com/solo?id=639b5a6afbc1f381d200bbbf" target="_blank">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=iGIZ2anO-c8" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=GvBVZ5SbQ0s" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="https://play.blooket.com/solo?id=639b5a6afbc1f381d200bbbf" target="_blank" class="blooket">🎮 Blooket</a>
           </span>
         </li>
         <li>
@@ -427,8 +422,9 @@
             <label for="step2">Hundreds, Tens and Ones</label>
           </div>
           <span class="links">
-            <a href="https://www.youtube.com/watch?v=gnuQ_WKXbBs" target="_blank">🎥 Video</a>
-            <a href="https://play.blooket.com/solo?id=652e8a35cea213d1256556b5" target="_blank">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=gnuQ_WKXbBs" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=1Mp2i6LbGtI" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="https://play.blooket.com/solo?id=652e8a35cea213d1256556b5" target="_blank" class="blooket">🎮 Blooket</a>
           </span>
         </li>
         <li>
@@ -437,8 +433,9 @@
             <label for="step3">Compare Numbers to 1000</label>
           </div>
           <span class="links">
-            <a href="https://www.youtube.com/watch?v=-JkNEAx2G2g" target="_blank">🎥 Video</a>
-            <a href="https://play.blooket.com/solo?id=632cfcf08c8d58fdf48398cd" target="_blank">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=-JkNEAx2G2g" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=U6wS_0x2WYo" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="https://play.blooket.com/solo?id=632cfcf08c8d58fdf48398cd" target="_blank" class="blooket">🎮 Blooket</a>
           </span>
         </li>
         <li>
@@ -447,8 +444,9 @@
             <label for="step4">Read and write numbers in numerals and words</label>
           </div>
           <span class="links">
-            <a href="https://www.youtube.com/watch?v=gnuQ_WKXbBs" target="_blank">🎥 Video</a>
-            <a href="https://play.blooket.com/solo?id=5fc3ee7be1c77b0004b5bc6a" target="_blank">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=gnuQ_WKXbBs" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=2L0MUSYJ5I4" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="https://play.blooket.com/solo?id=5fc3ee7be1c77b0004b5bc6a" target="_blank" class="blooket">🎮 Blooket</a>
           </span>
         </li>
       </ul>
@@ -456,7 +454,7 @@
 
     <!-- 🧮 Addition & Subtraction -->
     <div class="strand">
-      <h2>🧮 Addition & Subtraction 🦄</h2>
+      <h2>Addition & Subtraction 🦄</h2>
       <ul>
         <li>
           <div class="checkbox-container">
@@ -464,8 +462,9 @@
             <label for="step5">Add and subtract 3-digit numbers</label>
           </div>
           <span class="links">
-            <a href="#">🎥 Video</a>
-            <a href="#">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=3x4u1OfXe4M" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=9O3c5-OV-Do" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
         <li>
@@ -474,8 +473,9 @@
             <label for="step6">Estimate answers</label>
           </div>
           <span class="links">
-            <a href="#">🎥 Video</a>
-            <a href="#">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=1G-7Jv9l6Qc" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=9O3c5-OV-Do" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
       </ul>
@@ -483,7 +483,7 @@
 
     <!-- ✖️ Multiplication & Division -->
     <div class="strand">
-      <h2>✖️ Multiplication & Division 🐎</h2>
+      <h2>Multiplication & Division 🐎</h2>
       <ul>
         <li>
           <div class="checkbox-container">
@@ -491,8 +491,9 @@
             <label for="step7">Recall facts for 3, 4 and 8 times tables</label>
           </div>
           <span class="links">
-            <a href="#">🎥 Video</a>
-            <a href="#">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=9BgUEYf-HaA" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=3nPZJp1pQ0o" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
       </ul>
@@ -500,7 +501,7 @@
 
     <!-- 🍰 Fractions -->
     <div class="strand">
-      <h2>🍰 Fractions 🦄</h2>
+      <h2>Fractions 🦄</h2>
       <ul>
         <li>
           <div class="checkbox-container">
@@ -508,8 +509,9 @@
             <label for="step8">Recognise fractions of shapes and quantities</label>
           </div>
           <span class="links">
-            <a href="#">🎥 Video</a>
-            <a href="#">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=CA6dijZhqzA" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=6W5cC7Q7lJQ" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
       </ul>
@@ -517,7 +519,7 @@
 
     <!-- 📏 Measurement -->
     <div class="strand">
-      <h2>📏 Measurement 🐴</h2>
+      <h2>Measurement 🐴</h2>
       <ul>
         <li>
           <div class="checkbox-container">
@@ -525,8 +527,9 @@
             <label for="step9">Tell and write time (12- and 24-hour)</label>
           </div>
           <span class="links">
-            <a href="#">🎥 Video</a>
-            <a href="#">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=3icBxO6Wjz0" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=Q1bQ2Q3Q4Q5" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
       </ul>
@@ -534,7 +537,7 @@
 
     <!-- 🔺 Geometry -->
     <div class="strand">
-      <h2>🔺 Geometry (Shapes) 🦄</h2>
+      <h2>Geometry (Shapes) 🦄</h2>
       <ul>
         <li>
           <div class="checkbox-container">
@@ -542,8 +545,9 @@
             <label for="step10">Identify right angles</label>
           </div>
           <span class="links">
-            <a href="#">🎥 Video</a>
-            <a href="#">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=KZPfdS6d6s0" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=Q1bQ2Q3Q4Q5" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
       </ul>
@@ -551,7 +555,7 @@
 
     <!-- 📊 Statistics -->
     <div class="strand">
-      <h2>📊 Statistics 🐎</h2>
+      <h2>Statistics 🐎</h2>
       <ul>
         <li>
           <div class="checkbox-container">
@@ -559,8 +563,9 @@
             <label for="step11">Interpret pictograms and bar charts</label>
           </div>
           <span class="links">
-            <a href="#">🎥 Video</a>
-            <a href="#">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=9HcS_0p6-6Y" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=Q1bQ2Q3Q4Q5" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
         <li>
@@ -569,15 +574,16 @@
             <label for="step12">Solve problems using tables and data</label>
           </div>
           <span class="links">
-            <a href="#">🎥 Video</a>
-            <a href="#">🎮 Blooket</a>
+            <a href="https://www.youtube.com/watch?v=9HcS_0p6-6Y" target="_blank" class="video-en">🎥 English Video</a>
+            <a href="https://www.youtube.com/watch?v=Q1bQ2Q3Q4Q5" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
       </ul>
     </div>
 
     <footer>
-      🦄 Keep galloping forward — your magical progress is saved on this device so you can pick up where you left off! ✨
+      🦄 Keep galloping forward — your progress is saved on this device so you can pick up where you left off.
     </footer>
   </div>
 
@@ -591,17 +597,20 @@
       let completed = 0;
       steps.forEach(cb => { if (cb.checked) completed++; });
       const total = steps.length;
-      
       document.getElementById('progressText').innerText =
-        `You've completed ${completed} of ${total} magical math steps! ${completed === total ? '🎉 Amazing! You did it! 🎉' : ''}`;
+        `You've travelled ${completed} of ${total} steps 🐎`;
       document.getElementById('progressFill').style.width =
         (total ? (completed / total * 100) : 0) + '%';
       localStorage.setItem('year3Journey', JSON.stringify([...steps].map(cb => cb.checked)));
       
-      // Create confetti when all steps are completed
-      if (completed === total) {
-        createConfetti();
-      }
+      // Update game unlock status in localStorage
+      const completionStates = JSON.parse(localStorage.getItem('completionStates') || '{}');
+      steps.forEach((cb, index) => {
+        if (cb.checked && !completionStates['step' + (index + 1)]) {
+          completionStates['step' + (index + 1)] = true;
+        }
+      });
+      localStorage.setItem('completionStates', JSON.stringify(completionStates));
     }
     
     function loadProgress() {
@@ -623,6 +632,10 @@
         confetti.style.width = Math.random() * 10 + 5 + 'px';
         confetti.style.height = Math.random() * 10 + 5 + 'px';
         confetti.style.opacity = '1';
+        confetti.style.position = 'fixed';
+        confetti.style.top = '-10px';
+        confetti.style.zIndex = '1000';
+        confetti.style.pointerEvents = 'none';
         
         document.body.appendChild(confetti);
         
