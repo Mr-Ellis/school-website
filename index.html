@@ -167,6 +167,103 @@
       margin: 0;
     }
     
+    .platforms-section {
+      margin: 60px 0 40px;
+    }
+    
+    .platforms-section h2 {
+      color: var(--accent2);
+      text-align: center;
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+    }
+    
+    .platforms {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+    
+    .platform-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      border-left: 6px solid var(--accent3);
+    }
+    
+    .platform-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .platform-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 15px;
+    }
+    
+    .platform-icon {
+      font-size: 3rem;
+      flex-shrink: 0;
+    }
+    
+    .platform-title {
+      color: var(--accent2);
+      font-size: 1.6rem;
+      margin: 0;
+    }
+    
+    .platform-description {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .language-description {
+      padding: 15px;
+      border-radius: 12px;
+      background: var(--light);
+    }
+    
+    .language-description h4 {
+      margin: 0 0 10px;
+      font-size: 1.1rem;
+      color: var(--accent2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .language-description p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--dark);
+    }
+    
+    .platform-link {
+      display: inline-block;
+      background: var(--accent1);
+      color: var(--dark);
+      text-decoration: none;
+      padding: 12px 25px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      margin-top: 15px;
+      text-align: center;
+      width: 100%;
+    }
+    
+    .platform-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
     .cta-section {
       text-align: center;
       margin: 60px 0 40px;
@@ -383,6 +480,19 @@
       .admin-section {
         margin: 30px 20px 0;
       }
+      
+      .platforms {
+        grid-template-columns: 1fr;
+      }
+      
+      .platform-card {
+        padding: 20px;
+      }
+      
+      .platform-header {
+        flex-direction: column;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -423,6 +533,47 @@
           <div class="feature-icon">🏆</div>
           <h3>Track Your Progress</h3>
           <p>Watch your progress grow with our magical progress bar. Celebrate each achievement!</p>
+        </div>
+      </div>
+      
+      <div class="platforms-section">
+        <h2>More Amazing Learning Platforms 🚀</h2>
+        <div class="platforms">
+          <div class="platform-card">
+            <div class="platform-header">
+              <div class="platform-icon">⚡</div>
+              <h3 class="platform-title">Blitzrechnen</h3>
+            </div>
+            <div class="platform-description">
+              <div class="language-description">
+                <h4>🇩🇪 Deutsch</h4>
+                <p>Konzentriert sich auf das Automatisieren von Grundrechenarten (Addition, Subtraktion, Multiplikation, Division). Die Übungen sind kurz und adaptiv mit sofortigem Feedback. Wird in vielen deutschen Klassenzimmern für tägliches Training verwendet.</p>
+              </div>
+              <div class="language-description">
+                <h4>🇬🇧 English</h4>
+                <p>Focuses on automating number facts (addition, subtraction, multiplication, division). Exercises are short and adaptive, with immediate feedback. Used in many German classrooms for daily practice.</p>
+              </div>
+            </div>
+            <a href="https://www.klett.de/inhalt/grundschul-apps/31019" target="_blank" class="platform-link">Visit Blitzrechnen</a>
+          </div>
+          
+          <div class="platform-card">
+            <div class="platform-header">
+              <div class="platform-icon">🌟</div>
+              <h3 class="platform-title">ANTON App</h3>
+            </div>
+            <div class="platform-description">
+              <div class="language-description">
+                <h4>🇩🇪 Deutsch</h4>
+                <p>Eine kostenlose, umfassende Lern-App für Mathematik (und andere Fächer) von Klasse 1–10. Enthält interaktive Übungen, Belohnungen (Sterne, Spiele) und Lehrer-Zuweisungsfunktionen. Ideal zum Üben von Stellenwerten, Einmaleins, Brüchen und mehr.</p>
+              </div>
+              <div class="language-description">
+                <h4>🇬🇧 English</h4>
+                <p>A free, comprehensive learning app covering mathematics (and other subjects) from Grade 1–10. Includes interactive exercises, rewards (stars, games), and teacher assignment features. Ideal for practising place value, multiplication tables, fractions, and more.</p>
+              </div>
+            </div>
+            <a href="https://anton.app/de/" target="_blank" class="platform-link">Visit ANTON App</a>
+          </div>
         </div>
       </div>
       
@@ -509,6 +660,8 @@
         // Reset the game lock system
         localStorage.removeItem('completionStates');
         localStorage.removeItem('year3Journey');
+        localStorage.removeItem('confidenceProgress');
+        localStorage.removeItem('gamesUnlocked');
         
         // Show success message
         message.textContent = 'Game lock system has been reset! All games are now locked again.';

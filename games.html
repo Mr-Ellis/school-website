@@ -115,7 +115,7 @@
     }
     
     .container { 
-      max-width: 1000px; 
+      max-width: 1200px; 
       margin: 0 auto; 
       padding: 24px 16px; 
     }
@@ -192,43 +192,91 @@
       text-align: center;
     }
     
-    .game-section {
-      margin: 24px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      position: relative;
-      overflow: hidden;
-      border-left: 6px solid var(--accent1);
+    .games-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 30px 0;
     }
     
-    .game-section h2 {
+    @media (max-width: 768px) {
+      .games-section {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .games-column {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border-top: 5px solid var(--primary);
+    }
+    
+    .games-column h2 {
       color: var(--accent2);
-      margin: 0 0 16px;
-      font-size: 1.6rem;
+      margin: 0 0 20px;
+      font-size: 1.8rem;
+      text-align: center;
+      border-bottom: 2px dashed var(--accent1);
+      padding-bottom: 10px;
+    }
+    
+    .game-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .game-item {
+      background: var(--light);
+      padding: 20px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      border-left: 4px solid var(--accent3);
+    }
+    
+    .game-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+    
+    .game-item h3 {
+      color: var(--accent2);
+      margin: 0 0 10px;
+      font-size: 1.3rem;
       display: flex;
       align-items: center;
       gap: 10px;
     }
     
-    .game-container {
-      position: relative;
-      width: 100%;
-      height: 500px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border: 3px solid var(--accent3);
+    .game-item p {
+      color: var(--dark);
+      margin: 0 0 15px;
+      font-size: 1rem;
     }
     
-    .game-frame {
+    .game-link {
+      display: inline-block;
+      background: var(--accent1);
+      color: var(--dark);
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      text-align: center;
       width: 100%;
-      height: 100%;
-      border: none;
     }
     
-    .lock-overlay {
+    .game-link:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .locked-overlay {
       position: absolute;
       top: 0;
       left: 0;
@@ -239,13 +287,13 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      border-radius: 16px;
       z-index: 10;
-      transition: all 0.5s ease;
     }
     
-    .lock-icon {
-      font-size: 5rem;
-      margin-bottom: 20px;
+    .locked-icon {
+      font-size: 4rem;
+      margin-bottom: 15px;
       animation: bounce 2s infinite;
     }
     
@@ -254,124 +302,20 @@
       50% { transform: translateY(-10px); }
     }
     
-    .lock-message {
+    .locked-message {
       text-align: center;
       color: white;
       padding: 0 20px;
     }
     
-    .lock-message h3 {
-      font-size: 1.8rem;
-      margin: 0 0 16px;
-    }
-    
-    .lock-message p {
-      font-size: 1.2rem;
-      margin: 0 0 20px;
-      max-width: 600px;
-    }
-    
-    .progress-requirements {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 16px;
-      border-radius: 12px;
-      margin-top: 20px;
-      max-width: 500px;
-    }
-    
-    .progress-requirements h4 {
-      margin: 0 0 12px;
-      font-size: 1.2rem;
-    }
-    
-    .requirement-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    
-    .requirement-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .requirement-checkbox {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      color: var(--accent2);
-    }
-    
-    .requirement-checkbox.checked {
-      background: var(--accent3);
-    }
-    
-    .other-games {
-      margin: 40px auto;
-    }
-    
-    .other-games h2 {
-      color: var(--accent2);
-      text-align: center;
-      margin-bottom: 24px;
-      font-size: 1.8rem;
-    }
-    
-    .game-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    
-    .game-card {
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      transition: transform 0.3s ease;
-      border-top: 5px solid var(--primary);
-    }
-    
-    .game-card:hover {
-      transform: translateY(-5px);
-    }
-    
-    .game-card-content {
-      padding: 20px;
-    }
-    
-    .game-card h3 {
-      color: var(--accent2);
+    .locked-message h3 {
+      font-size: 1.5rem;
       margin: 0 0 10px;
-      font-size: 1.3rem;
     }
     
-    .game-card p {
-      color: var(--dark);
-      margin: 0 0 16px;
-    }
-    
-    .game-card-link {
-      display: inline-block;
-      background: var(--accent1);
-      color: var(--dark);
-      text-decoration: none;
-      padding: 8px 16px;
-      border-radius: 20px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-    }
-    
-    .game-card-link:hover {
-      background: var(--primary);
-      color: white;
-      transform: translateY(-2px);
+    .locked-message p {
+      font-size: 1.1rem;
+      margin: 0;
     }
     
     footer { 
@@ -409,22 +353,6 @@
       
       header h1 {
         font-size: 1.8rem;
-      }
-      
-      .game-container {
-        height: 400px;
-      }
-      
-      .lock-icon {
-        font-size: 3rem;
-      }
-      
-      .lock-message h3 {
-        font-size: 1.4rem;
-      }
-      
-      .lock-message p {
-        font-size: 1rem;
       }
       
       .timer-display {
@@ -467,50 +395,66 @@
       </div>
     </div>
 
-    <div class="game-section">
-      <h2>🎮 Blooket Games</h2>
-      <div class="game-container">
-        <iframe src="https://play.blooket.com/play" class="game-frame" id="gameFrame"></iframe>
-        <div class="lock-overlay" id="lockOverlay">
-          <div class="lock-icon">🔒</div>
-          <div class="lock-message">
-            <h3>Game Locked! 🔒</h3>
-            <p>Complete a new math lesson to unlock this game!</p>
-            <div class="progress-requirements">
-              <h4>Progress Requirements:</h4>
-              <div class="requirement-list" id="requirementList">
-                <!-- Requirement items will be added by JavaScript -->
-              </div>
-            </div>
+    <div class="games-section">
+      <!-- Left Column: Math Games -->
+      <div class="games-column">
+        <h2>📚 Math Practice Games</h2>
+        <div class="game-list">
+          <div class="game-item">
+            <h3>🎮 Blooket Games</h3>
+            <p>Practice math skills with fun quiz games!</p>
+            <a href="https://play.blooket.com/play" target="_blank" class="game-link">Play Blooket</a>
+          </div>
+          
+          <div class="game-item">
+            <h3>🎯 Math Bingo</h3>
+            <p>Practice your math facts with this fun bingo game!</p>
+            <a href="https://www.abcya.com/games/number_bingo" target="_blank" class="game-link">Play Math Bingo</a>
+          </div>
+          
+          <div class="game-item">
+            <h3>🧩 Number Match</h3>
+            <p>Match numbers with their representations in this memory game.</p>
+            <a href="https://www.mathplayground.com/matching_fraction_percent.html" target="_blank" class="game-link">Play Number Match</a>
+          </div>
+          
+          <div class="game-item">
+            <h3>🔺 Shape Sorter</h3>
+            <p>Sort and identify different geometric shapes.</p>
+            <a href="https://www.turtlediary.com/game/identify-shapes.html" target="_blank" class="game-link">Play Shape Sorter</a>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="other-games">
-      <h2>More Fun Math Games 🦄</h2>
-      <div class="game-cards">
-        <div class="game-card">
-          <div class="game-card-content">
-            <h3>Math Bingo 🎯</h3>
-            <p>Practice your math facts with this fun bingo game!</p>
-            <a href="https://www.abcya.com/games/number_bingo" target="_blank" class="game-card-link">Play Now</a>
+      <!-- Right Column: Fun Games -->
+      <div class="games-column" id="funGamesColumn">
+        <h2>🎉 Fun Break Games</h2>
+        <div class="game-list">
+          <div class="game-item">
+            <h3>🚗 Escape Road 2</h3>
+            <p>Navigate through challenging roads in this exciting driving game!</p>
+            <a href="https://escaperoad2.io/" target="_blank" class="game-link">Play Escape Road 2</a>
+          </div>
+          
+          <div class="game-item">
+            <h3>🤠 Cowboy Safari</h3>
+            <p>Go on a wild west adventure with this fun safari game!</p>
+            <a href="https://queensgame.io/games/cowboy-safari" target="_blank" class="game-link">Play Cowboy Safari</a>
+          </div>
+          
+          <div class="game-item">
+            <h3>🧱 Bloxd.io</h3>
+            <p>Build and explore in this creative block world!</p>
+            <a href="https://bloxd.io/game/classic_creative" target="_blank" class="game-link">Play Bloxd.io</a>
           </div>
         </div>
         
-        <div class="game-card">
-          <div class="game-card-content">
-            <h3>Number Match 🧩</h3>
-            <p>Match numbers with their representations in this memory game.</p>
-            <a href="https://www.mathplayground.com/matching_fraction_percent.html" target="_blank" class="game-card-link">Play Now</a>
-          </div>
-        </div>
-        
-        <div class="game-card">
-          <div class="game-card-content">
-            <h3>Shape Sorter 🔺</h3>
-            <p>Sort and identify different geometric shapes.</p>
-            <a href="https://www.turtlediary.com/game/identify-shapes.html" target="_blank" class="game-card-link">Play Now</a>
+        <!-- Lock overlay for fun games -->
+        <div class="locked-overlay" id="lockOverlay">
+          <div class="locked-icon">🔒</div>
+          <div class="locked-message">
+            <h3>Games Locked! 🔒</h3>
+            <p>Complete math lessons with yellow or green confidence to unlock these games!</p>
           </div>
         </div>
       </div>
@@ -577,35 +521,63 @@
     }
 
     // Game unlock functionality
-    let completionStates = JSON.parse(localStorage.getItem('completionStates') || '{}');
-    let curriculumItems = JSON.parse(localStorage.getItem('year3Journey') || '[]');
-    let previouslyCompletedCount = Object.keys(completionStates).length;
-    
-    const curriculumData = [
-      { id: 'step1', name: 'Count in 2s, 5s and 10s' },
-      { id: 'step2', name: 'Hundreds, Tens and Ones' },
-      { id: 'step3', name: 'Compare Numbers to 1000' },
-      { id: 'step4', name: 'Read and write numbers in numerals and words' },
-      { id: 'step5', name: 'Add and subtract 3-digit numbers' },
-      { id: 'step6', name: 'Estimate answers' },
-      { id: 'step7', name: 'Recall facts for 3, 4 and 8 times tables' },
-      { id: 'step8', name: 'Recognise fractions of shapes and quantities' },
-      { id: 'step9', name: 'Tell and write time (12- and 24-hour)' },
-      { id: 'step10', name: 'Identify right angles' },
-      { id: 'step11', name: 'Interpret pictograms and bar charts' },
-      { id: 'step12', name: 'Solve problems using tables and data' }
-    ];
-    
     function checkGameUnlockStatus() {
+      const gamesUnlocked = localStorage.getItem('gamesUnlocked') === 'true';
       const lockOverlay = document.getElementById('lockOverlay');
-      const requirementList = document.getElementById('requirementList');
       
-      requirementList.innerHTML = '';
+      if (gamesUnlocked) {
+        lockOverlay.style.display = 'none';
+      } else {
+        lockOverlay.style.display = 'flex';
+      }
+    }
+    
+    function createConfetti() {
+      const colors = ['#ff9ed8', '#a3d2ca', '#ffd166', '#9d7bde', '#7ae0c3'];
+      const confettiCount = 50;
       
-      let currentCompletedCount = 0;
-      curriculumItems.forEach((completed, index) => {
-        if (completed) {
-          currentCompletedCount++;
+      for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = Math.random() * 10 + 5 + 'px';
+        confetti.style.height = Math.random() * 10 + 5 + 'px';
+        confetti.style.opacity = '1';
+        confetti.style.position = 'fixed';
+        confetti.style.top = '-10px';
+        confetti.style.zIndex = '1000';
+        confetti.style.pointerEvents = 'none';
+        
+        document.body.appendChild(confetti);
+        
+        const animation = confetti.animate([
+          { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+          { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+        ], {
+          duration: Math.random() * 2000 + 1000,
+          easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+        });
+        
+        animation.onfinish = () => {
+          confetti.remove();
+        };
+      }
+    }
+    
+    // Initialize the page
+    window.addEventListener('load', function() {
+      updateTimerDisplay();
+      checkGameUnlockStatus();
+      
+      // Check for updates to game unlock status
+      setInterval(function() {
+        checkGameUnlockStatus();
+      }, 2000);
+    });
+  </script>
+</body>
+</html>unt++;
         }
       });
       

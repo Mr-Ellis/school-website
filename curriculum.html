@@ -14,6 +14,9 @@
       --accent3: #7ae0c3;
       --light: #fff9fc;
       --dark: #4a4a72;
+      --red: #ff6b6b;
+      --yellow: #ffd166;
+      --green: #7ae0c3;
     }
     
     * {
@@ -244,19 +247,15 @@
       border-top: none; 
     }
     
-    .checkbox-container {
+    .topic-container {
       display: flex;
       align-items: flex-start;
       gap: 12px;
     }
     
-    .checkbox-container input[type="checkbox"] {
-      display: none;
-    }
-    
-    .checkbox-container label {
+    .topic-container .topic-label {
       position: relative;
-      padding-left: 40px;
+      padding-left: 0;
       cursor: pointer;
       font-size: 1.1rem;
       line-height: 1.4;
@@ -264,40 +263,104 @@
       display: flex;
       align-items: center;
       min-height: 30px;
+      flex: 1;
     }
     
-    .checkbox-container label::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 28px;
-      height: 28px;
-      border: 2px solid var(--primary);
-      border-radius: 8px;
-      background: white;
+    .confidence-selector {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    
+    .confidence-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .confidence-option input[type="checkbox"] {
+      display: none;
+    }
+    
+    .confidence-label {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
       transition: all 0.3s ease;
+      position: relative;
     }
     
-    .checkbox-container label::after {
+    .confidence-label.red {
+      background: var(--red);
+    }
+    
+    .confidence-label.yellow {
+      background: var(--yellow);
+    }
+    
+    .confidence-label.green {
+      background: var(--green);
+    }
+    
+    .confidence-label::after {
       content: "✓";
       position: absolute;
-      left: 9px;
-      top: 3px;
-      font-size: 16px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       color: white;
+      font-size: 14px;
       opacity: 0;
-      transition: all 0.3s ease;
-      font-weight: bold;
+      transition: opacity 0.3s ease;
     }
     
-    .checkbox-container input[type="checkbox"]:checked + label::before {
-      background: var(--primary);
-      border-color: var(--primary);
-    }
-    
-    .checkbox-container input[type="checkbox"]:checked + label::after {
+    .confidence-option input[type="checkbox"]:checked + .confidence-label::after {
       opacity: 1;
+    }
+    
+    .confidence-option input[type="checkbox"]:checked + .confidence-label {
+      transform: scale(1.2);
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+    
+    .confidence-text {
+      font-size: 0.7rem;
+      color: var(--dark);
+      text-align: center;
+    }
+    
+    .learning-outcomes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 10px 0 15px;
+      padding: 12px;
+      background: var(--light);
+      border-radius: 10px;
+      border-left: 4px solid var(--accent3);
+    }
+    
+    .outcome {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .outcome h4 {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      color: var(--accent2);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .outcome p {
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: var(--dark);
     }
     
     .links { 
@@ -377,6 +440,15 @@
       .strand h2 {
         font-size: 1.3rem;
       }
+      
+      .confidence-selector {
+        flex-direction: column;
+        gap: 5px;
+      }
+      
+      .learning-outcomes {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -406,46 +478,150 @@
       <h2>Number & Place Value 🐴</h2>
       <ul>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step1" onchange="updateProgress()">
-            <label for="step1">Count in 2s, 5s and 10s</label>
+          <div class="topic-container">
+            <div class="topic-label">Count in 2s, 5s and 10s</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step1-red" name="step1" onchange="updateConfidence('step1', this)">
+                <label for="step1-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step1-yellow" name="step1" onchange="updateConfidence('step1', this)">
+                <label for="step1-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step1-green" name="step1" onchange="updateConfidence('step1', this)">
+                <label for="step1-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can count forward and backward in steps of 2, 5, and 10 like a counting superhero!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kann vorwärts und rückwärts in 2er, 5er und 10er Schritten zählen wie ein Zähl-Superheld!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=iGIZ2anO-c8" target="_blank" class="video-en">🎥 English Video</a>
-            <a href="https://www.youtube.com/watch?v=GvBVZ5SbQ0s" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="https://www.youtube.com/watch?v=p9fw0dBoezs" target="_blank" class="video-de">🇩🇪 German Video</a>
             <a href="https://play.blooket.com/solo?id=639b5a6afbc1f381d200bbbf" target="_blank" class="blooket">🎮 Blooket</a>
           </span>
         </li>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step2" onchange="updateProgress()">
-            <label for="step2">Hundreds, Tens and Ones</label>
+          <div class="topic-container">
+            <div class="topic-label">Hundreds, Tens and Ones</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step2-red" name="step2" onchange="updateConfidence('step2', this)">
+                <label for="step2-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step2-yellow" name="step2" onchange="updateConfidence('step2', this)">
+                <label for="step2-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step2-green" name="step2" onchange="updateConfidence('step2', this)">
+                <label for="step2-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can understand how numbers are made of hundreds, tens, and ones, just like building blocks!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich verstehe, wie Zahlen aus Hundertern, Zehnern und Einern bestehen, genau wie Bauklötze!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=gnuQ_WKXbBs" target="_blank" class="video-en">🎥 English Video</a>
-            <a href="https://www.youtube.com/watch?v=1Mp2i6LbGtI" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="https://www.youtube.com/watch?v=5cz7E8ehW0c" target="_blank" class="video-de">🇩🇪 German Video</a>
             <a href="https://play.blooket.com/solo?id=652e8a35cea213d1256556b5" target="_blank" class="blooket">🎮 Blooket</a>
           </span>
         </li>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step3" onchange="updateProgress()">
-            <label for="step3">Compare Numbers to 1000</label>
+          <div class="topic-container">
+            <div class="topic-label">Compare Numbers to 1000</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step3-red" name="step3" onchange="updateConfidence('step3', this)">
+                <label for="step3-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step3-yellow" name="step3" onchange="updateConfidence('step3', this)">
+                <label for="step3-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step3-green" name="step3" onchange="updateConfidence('step3', this)">
+                <label for="step3-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can tell which number is bigger or smaller, and use the hungry crocodile signs &lt; and &gt;!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kann sagen, welche Zahl größer oder kleiner ist, und die hungrigen Krokodil-Zeichen &lt; und &gt; verwenden!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=-JkNEAx2G2g" target="_blank" class="video-en">🎥 English Video</a>
-            <a href="https://www.youtube.com/watch?v=U6wS_0x2WYo" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="https://www.youtube.com/watch?v=5cz7E8ehW0c" target="_blank" class="video-de">🇩🇪 German Video</a>
             <a href="https://play.blooket.com/solo?id=632cfcf08c8d58fdf48398cd" target="_blank" class="blooket">🎮 Blooket</a>
           </span>
         </li>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step4" onchange="updateProgress()">
-            <label for="step4">Read and write numbers in numerals and words</label>
+          <div class="topic-container">
+            <div class="topic-label">Read and write numbers in numerals and words</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step4-red" name="step4" onchange="updateConfidence('step4', this)">
+                <label for="step4-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step4-yellow" name="step4" onchange="updateConfidence('step4', this)">
+                <label for="step4-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step4-green" name="step4" onchange="updateConfidence('step4', this)">
+                <label for="step4-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can read numbers as words and write them as digits, like a number detective!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kann Zahlen als Wörter lesen und als Ziffern schreiben, wie ein Zahlen-Detektiv!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=gnuQ_WKXbBs" target="_blank" class="video-en">🎥 English Video</a>
-            <a href="https://www.youtube.com/watch?v=2L0MUSYJ5I4" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="https://www.youtube.com/watch?v=ZHi_4FP7AzE" target="_blank" class="video-de">🇩🇪 German Video</a>
             <a href="https://play.blooket.com/solo?id=5fc3ee7be1c77b0004b5bc6a" target="_blank" class="blooket">🎮 Blooket</a>
           </span>
         </li>
@@ -457,9 +633,35 @@
       <h2>Addition & Subtraction 🦄</h2>
       <ul>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step5" onchange="updateProgress()">
-            <label for="step5">Add and subtract 3-digit numbers</label>
+          <div class="topic-container">
+            <div class="topic-label">Add and subtract 3-digit numbers</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step5-red" name="step5" onchange="updateConfidence('step5', this)">
+                <label for="step5-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step5-yellow" name="step5" onchange="updateConfidence('step5', this)">
+                <label for="step5-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step5-green" name="step5" onchange="updateConfidence('step5', this)">
+                <label for="step5-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can add and subtract big numbers with three digits, just like a math magician!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kann große Zahlen mit drei Stellen addieren und subtrahieren, wie ein Mathe-Zauberer!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=3x4u1OfXe4M" target="_blank" class="video-en">🎥 English Video</a>
@@ -468,9 +670,35 @@
           </span>
         </li>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step6" onchange="updateProgress()">
-            <label for="step6">Estimate answers</label>
+          <div class="topic-container">
+            <div class="topic-label">Estimate answers</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step6-red" name="step6" onchange="updateConfidence('step6', this)">
+                <label for="step6-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step6-yellow" name="step6" onchange="updateConfidence('step6', this)">
+                <label for="step6-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step6-green" name="step6" onchange="updateConfidence('step6', this)">
+                <label for="step6-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can make a smart guess about what the answer might be, like a math detective!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kann eine kluge Vermutung darüber anstellen, was die Antwort sein könnte, wie ein Mathe-Detektiv!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=1G-7Jv9l6Qc" target="_blank" class="video-en">🎥 English Video</a>
@@ -486,9 +714,35 @@
       <h2>Multiplication & Division 🐎</h2>
       <ul>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step7" onchange="updateProgress()">
-            <label for="step7">Recall facts for 3, 4 and 8 times tables</label>
+          <div class="topic-container">
+            <div class="topic-label">Recall facts for 3, 4 and 8 times tables</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step7-red" name="step7" onchange="updateConfidence('step7', this)">
+                <label for="step7-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step7-yellow" name="step7" onchange="updateConfidence('step7', this)">
+                <label for="step7-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step7-green" name="step7" onchange="updateConfidence('step7', this)">
+                <label for="step7-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I know my 3, 4, and 8 times tables by heart, like a times table superhero!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kenne meine 3er, 4er und 8er Einmaleins-Reihen auswendig, wie ein Einmaleins-Superheld!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=9BgUEYf-HaA" target="_blank" class="video-en">🎥 English Video</a>
@@ -504,9 +758,35 @@
       <h2>Fractions 🦄</h2>
       <ul>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step8" onchange="updateProgress()">
-            <label for="step8">Recognise fractions of shapes and quantities</label>
+          <div class="topic-container">
+            <div class="topic-label">Recognise fractions of shapes and quantities</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step8-red" name="step8" onchange="updateConfidence('step8', this)">
+                <label for="step8-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step8-yellow" name="step8" onchange="updateConfidence('step8', this)">
+                <label for="step8-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step8-green" name="step8" onchange="updateConfidence('step8', this)">
+                <label for="step8-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can spot fractions in shapes and groups of objects, like a fraction detective!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kann Brüche in Formen und Objektgruppen erkennen, wie ein Bruch-Detektiv!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=CA6dijZhqzA" target="_blank" class="video-en">🎥 English Video</a>
@@ -522,13 +802,39 @@
       <h2>Measurement 🐴</h2>
       <ul>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step9" onchange="updateProgress()">
-            <label for="step9">Tell and write time (12- and 24-hour)</label>
+          <div class="topic-container">
+            <div class="topic-label">Tell and write time (12- and 24-hour)</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step9-red" name="step9" onchange="updateConfidence('step9', this)">
+                <label for="step9-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step9-yellow" name="step9" onchange="updateConfidence('step9', this)">
+                <label for="step9-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step9-green" name="step9" onchange="updateConfidence('step9', this)">
+                <label for="step9-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can read clocks and write times in both 12-hour and 24-hour formats, like a time expert!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kann Uhren lesen und Zeiten im 12-Stunden- und 24-Stunden-Format schreiben, wie ein Zeit-Experte!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=3icBxO6Wjz0" target="_blank" class="video-en">🎥 English Video</a>
-            <a href="https://www.youtube.com/watch?v=Q1bQ2Q3Q4Q5" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="video-de">🇩🇪 German Video</a>
             <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
@@ -540,13 +846,39 @@
       <h2>Geometry (Shapes) 🦄</h2>
       <ul>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step10" onchange="updateProgress()">
-            <label for="step10">Identify right angles</label>
+          <div class="topic-container">
+            <div class="topic-label">Identify right angles</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step10-red" name="step10" onchange="updateConfidence('step10', this)">
+                <label for="step10-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step10-yellow" name="step10" onchange="updateConfidence('step10', this)">
+                <label for="step10-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step10-green" name="step10" onchange="updateConfidence('step10', this)">
+                <label for="step10-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can spot right angles in shapes and all around me, like an angle explorer!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kann rechte Winkel in Formen und überall um mich herum erkennen, wie ein Winkel-Entdecker!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=KZPfdS6d6s0" target="_blank" class="video-en">🎥 English Video</a>
-            <a href="https://www.youtube.com/watch?v=Q1bQ2Q3Q4Q5" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="video-de">🇩🇪 German Video</a>
             <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
@@ -558,24 +890,76 @@
       <h2>Statistics 🐎</h2>
       <ul>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step11" onchange="updateProgress()">
-            <label for="step11">Interpret pictograms and bar charts</label>
+          <div class="topic-container">
+            <div class="topic-label">Interpret pictograms and bar charts</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step11-red" name="step11" onchange="updateConfidence('step11', this)">
+                <label for="step11-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step11-yellow" name="step11" onchange="updateConfidence('step11', this)">
+                <label for="step11-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step11-green" name="step11" onchange="updateConfidence('step11', this)">
+                <label for="step11-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can read and understand picture graphs and bar charts, like a data detective!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kann Bilddiagramme und Balkendiagramme lesen und verstehen, wie ein Daten-Detektiv!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=9HcS_0p6-6Y" target="_blank" class="video-en">🎥 English Video</a>
-            <a href="https://www.youtube.com/watch?v=Q1bQ2Q3Q4Q5" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="video-de">🇩🇪 German Video</a>
             <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
         <li>
-          <div class="checkbox-container">
-            <input type="checkbox" id="step12" onchange="updateProgress()">
-            <label for="step12">Solve problems using tables and data</label>
+          <div class="topic-container">
+            <div class="topic-label">Solve problems using tables and data</div>
+            <div class="confidence-selector">
+              <div class="confidence-option">
+                <input type="checkbox" id="step12-red" name="step12" onchange="updateConfidence('step12', this)">
+                <label for="step12-red" class="confidence-label red"></label>
+                <div class="confidence-text">Need Help</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step12-yellow" name="step12" onchange="updateConfidence('step12', this)">
+                <label for="step12-yellow" class="confidence-label yellow"></label>
+                <div class="confidence-text">Getting There</div>
+              </div>
+              <div class="confidence-option">
+                <input type="checkbox" id="step12-green" name="step12" onchange="updateConfidence('step12', this)">
+                <label for="step12-green" class="confidence-label green"></label>
+                <div class="confidence-text">Confident!</div>
+              </div>
+            </div>
+          </div>
+          <div class="learning-outcomes">
+            <div class="outcome">
+              <h4>🇬🇧 Learning Goal</h4>
+              <p>I can use information from tables and charts to solve puzzles and problems!</p>
+            </div>
+            <div class="outcome">
+              <h4>🇩🇪 Lernziel</h4>
+              <p>Ich kann Informationen aus Tabellen und Diagrammen verwenden, um Rätsel und Probleme zu lösen!</p>
+            </div>
           </div>
           <span class="links">
             <a href="https://www.youtube.com/watch?v=9HcS_0p6-6Y" target="_blank" class="video-en">🎥 English Video</a>
-            <a href="https://www.youtube.com/watch?v=Q1bQ2Q3Q4Q5" target="_blank" class="video-de">🇩🇪 German Video</a>
+            <a href="#" class="video-de">🇩🇪 German Video</a>
             <a href="#" class="blooket">🎮 Blooket</a>
           </span>
         </li>
@@ -592,32 +976,94 @@
   </div>
 
   <script>
+    // Track confidence levels
+    function updateConfidence(stepId, checkbox) {
+      // Uncheck other options in the same group
+      const groupName = checkbox.name;
+      const groupCheckboxes = document.querySelectorAll(`input[name="${groupName}"]`);
+      groupCheckboxes.forEach(cb => {
+        if (cb !== checkbox) {
+          cb.checked = false;
+        }
+      });
+      
+      // Update progress
+      updateProgress();
+      
+      // Update game unlock status
+      updateGameUnlockStatus();
+    }
+    
     function updateProgress() {
-      const steps = document.querySelectorAll('.strand input[type="checkbox"]');
+      const steps = document.querySelectorAll('.strand .confidence-selector');
       let completed = 0;
-      steps.forEach(cb => { if (cb.checked) completed++; });
+      
+      steps.forEach(selector => {
+        const yellowChecked = selector.querySelector('input[name^="step"]:checked + .yellow');
+        const greenChecked = selector.querySelector('input[name^="step"]:checked + .green');
+        if (yellowChecked || greenChecked) {
+          completed++;
+        }
+      });
+      
       const total = steps.length;
       document.getElementById('progressText').innerText =
         `You've travelled ${completed} of ${total} steps 🐎`;
       document.getElementById('progressFill').style.width =
         (total ? (completed / total * 100) : 0) + '%';
-      localStorage.setItem('year3Journey', JSON.stringify([...steps].map(cb => cb.checked)));
       
-      // Update game unlock status in localStorage
-      const completionStates = JSON.parse(localStorage.getItem('completionStates') || '{}');
-      steps.forEach((cb, index) => {
-        if (cb.checked && !completionStates['step' + (index + 1)]) {
-          completionStates['step' + (index + 1)] = true;
+      // Save progress to localStorage
+      const progress = {};
+      steps.forEach((selector, index) => {
+        const stepId = `step${index + 1}`;
+        const redChecked = selector.querySelector(`#${stepId}-red`).checked;
+        const yellowChecked = selector.querySelector(`#${stepId}-yellow`).checked;
+        const greenChecked = selector.querySelector(`#${stepId}-green`).checked;
+        
+        progress[stepId] = {
+          red: redChecked,
+          yellow: yellowChecked,
+          green: greenChecked
+        };
+      });
+      
+      localStorage.setItem('confidenceProgress', JSON.stringify(progress));
+    }
+    
+    function updateGameUnlockStatus() {
+      const steps = document.querySelectorAll('.strand .confidence-selector');
+      let hasYellowOrGreen = false;
+      
+      steps.forEach(selector => {
+        const yellowChecked = selector.querySelector('input[name^="step"]:checked + .yellow');
+        const greenChecked = selector.querySelector('input[name^="step"]:checked + .green');
+        if (yellowChecked || greenChecked) {
+          hasYellowOrGreen = true;
         }
       });
-      localStorage.setItem('completionStates', JSON.stringify(completionStates));
+      
+      // Save game unlock status
+      localStorage.setItem('gamesUnlocked', hasYellowOrGreen);
     }
     
     function loadProgress() {
-      const saved = JSON.parse(localStorage.getItem('year3Journey') || '[]');
-      const steps = document.querySelectorAll('.strand input[type="checkbox"]');
-      saved.forEach((val, i) => { if (val && steps[i]) steps[i].checked = true; });
+      const saved = JSON.parse(localStorage.getItem('confidenceProgress') || '{}');
+      
+      for (const stepId in saved) {
+        const stepData = saved[stepId];
+        if (stepData.red) {
+          document.getElementById(`${stepId}-red`).checked = true;
+        }
+        if (stepData.yellow) {
+          document.getElementById(`${stepId}-yellow`).checked = true;
+        }
+        if (stepData.green) {
+          document.getElementById(`${stepId}-green`).checked = true;
+        }
+      }
+      
       updateProgress();
+      updateGameUnlockStatus();
     }
     
     function createConfetti() {
